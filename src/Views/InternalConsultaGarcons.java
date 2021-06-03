@@ -14,6 +14,13 @@ public class InternalConsultaGarcons extends javax.swing.JInternalFrame {
     public InternalConsultaGarcons() {
         initComponents();
         PopularJTable();
+    }
+
+     public void PopularJTable(){
+         
+         try {
+            GarcomNegocio garcomnegocio = new GarcomNegocio();
+            ArrayList<Garcom> listaGarcom = garcomnegocio.listaGarcomTodos();
             
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setNumRows(0);

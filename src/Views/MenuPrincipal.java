@@ -17,12 +17,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         jMenuItem7.setText("jMenuItem7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Restaurante");
 
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
@@ -45,6 +50,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem3.setText("Garçom");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Produtos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Consultas");
@@ -56,6 +77,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem5);
+
+        jMenuItem2.setText("Garçons");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem6.setText("Produtos");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
 
@@ -93,6 +130,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
         consultaclientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        InternalConsultaGarcons consultagarcons = new InternalConsultaGarcons();
+        DesktopPane.add(consultagarcons);
+        consultagarcons.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        InternalCadastroGarcom cadastrogarcons = new InternalCadastroGarcom();
+        DesktopPane.add(cadastrogarcons);
+        cadastrogarcons.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        InternalCadastroProduto cadastroProdutos = new InternalCadastroProduto();
+        DesktopPane.add(cadastroProdutos);
+        cadastroProdutos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        InternalConsultaProdutos consultaProdutos = new InternalConsultaProdutos();
+        DesktopPane.add(consultaProdutos);
+        consultaProdutos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -116,6 +177,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -131,7 +195,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }
