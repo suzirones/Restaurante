@@ -9,6 +9,13 @@ public class Cliente {
     private String sexo;
     private String datanascimento;
 
+    public Cliente() {
+    }
+
+    public Cliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+    
     public int getIdCliente() {
         return idCliente;
     }
@@ -55,5 +62,10 @@ public class Cliente {
 
     public void setDatanascimento(String datanascimento) {
          this.datanascimento = datanascimento;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }
