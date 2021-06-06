@@ -28,7 +28,7 @@ public class ProdutoDAO {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, produto.getNome());
-            ps.setString(2, df.format(produto.getValor()).replace(',','.'));
+            ps.setString(2, String.valueOf(produto.getValor()).replace(',','.'));
             ps.setInt(3, 1);
 
             System.out.println(sql);

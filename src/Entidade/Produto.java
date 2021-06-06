@@ -4,6 +4,13 @@ public class Produto {
    private int idProduto;
    private String nome;
    private double valor;
+
+    public Produto() {
+    }
+
+    public Produto(int idProduto) {
+        this.idProduto = idProduto;
+    }
    
    public int getIdProduto() {
         return idProduto;
@@ -28,5 +35,9 @@ public class Produto {
     public void setValor(double valor) {
         this.valor = valor;
     }
-    
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

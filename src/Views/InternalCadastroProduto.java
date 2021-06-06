@@ -99,7 +99,7 @@ public class InternalCadastroProduto extends javax.swing.JInternalFrame {
 
             //preenchendo variaveis
             produto.setNome(FieldNome.getText());
-            produto.setValor(((Number)FieldValor.getValue()).doubleValue());
+            produto.setValor(Double.parseDouble(FieldValor.getText().replace(",", ".")));
             
             //Salvar
             IProdutoNegocio produtoNegocio = new ProdutoNegocio();
