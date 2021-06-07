@@ -6,6 +6,8 @@ import Entidade.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class VendaDAO {
 
             String sql = "INSERT INTO venda(idcliente, idgarcom, datavenda, valortotal, ativo) VALUES (?, ?, ?, ?, ?)";
 
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, venda.getDadosCliente().getIdCliente());
             ps.setInt(2, venda.getDadosGarcom().getIdGarcom());
@@ -35,10 +37,20 @@ public class VendaDAO {
             ps.setString(4, df.format(venda.getValorTotal()).replace(',','.'));
             ps.setInt(5, 1);
 
-            System.out.println(sql);
+            int qntdRegistros = ps.executeUpdate();
+            if (qntdRegistros == 0) {
+                throw new SQLException("Erro ao cadastrar uma venda.");
+            }
 
-            isSucesso = ps.executeUpdate();
-
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    isSucesso = generatedKeys.getInt(1);
+                }
+                else {
+                    throw new SQLException("Problema ao obter o código da venda.");
+                }
+            }
+            
             connection.close();
         } catch (Exception e) {
             throw new Exception(e);

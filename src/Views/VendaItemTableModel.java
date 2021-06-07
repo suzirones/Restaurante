@@ -29,10 +29,10 @@ public class VendaItemTableModel extends AbstractTableModel {
     public Object getValueAt(int linha, int coluna) {
         switch(coluna) {
             case 0:
-                return listagemVendaItem.get(linha).getIdProduto();
+                return listagemVendaItem.get(linha).getDadosProduto().getIdProduto();
 
             case 1:
-                return listagemVendaItem.get(linha).getDescricaoProduto();
+                return listagemVendaItem.get(linha).getDadosProduto().getNome();
 
             case 2:
                 return listagemVendaItem.get(linha).getQuantidade();
@@ -49,5 +49,9 @@ public class VendaItemTableModel extends AbstractTableModel {
     public void removeVendaItem(int linha){
         this.listagemVendaItem.remove(linha);
         this.fireTableRowsDeleted(linha, linha);
+    }
+    
+    public VendaItem getVendaItem(int linha) {
+        return listagemVendaItem.get(linha);
     }
 }

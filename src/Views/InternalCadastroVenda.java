@@ -9,13 +9,17 @@ import Entidade.Venda;
 import Entidade.VendaItem;
 import Negocio.ClienteNegocio;
 import Negocio.GarcomNegocio;
+import Negocio.IVendaItemNegocio;
 import Negocio.VendaNegocio;
 import Negocio.IVendaNegocio;
 import Negocio.ProdutoNegocio;
+import Negocio.VendaItemNegocio;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import jdk.nashorn.internal.objects.NativeArray;
 
 public class InternalCadastroVenda extends javax.swing.JInternalFrame {
 
@@ -295,9 +299,18 @@ public class InternalCadastroVenda extends javax.swing.JInternalFrame {
             
             //Salvar
             IVendaNegocio vendaNegocio = new VendaNegocio();
-            boolean isSucesso = vendaNegocio.inserirVenda(venda) == 1 ? true : false;
-
-            if (isSucesso) {
+            int codigoVenda = vendaNegocio.inserirVenda(venda);
+            
+            IVendaItemNegocio vendaItemNegocio = new VendaItemNegocio();
+            int quantidadeItens = vendaItemTModel.getRowCount();
+            int registrosAfetados = 0;
+            
+            for (int i = 0; i < quantidadeItens; i++) {
+                VendaItem vendaItem = vendaItemTModel.getVendaItem(i);
+                registrosAfetados = vendaItemNegocio.inserirVenda(vendaItem, codigoVenda);
+            }
+            
+            if (registrosAfetados == 1) {
             JOptionPane.showMessageDialog(null, "Venda Cadastrado com Sucesso!");
             } else {
             JOptionPane.showMessageDialog(null, "Venda Não Cadastrado!");
@@ -311,8 +324,9 @@ public class InternalCadastroVenda extends javax.swing.JInternalFrame {
         Produto produtoSel = (Produto)this.produtoCombobox.getSelectedItem();
         
         VendaItem venda = new VendaItem();
-        venda.setIdProduto(produtoSel.getIdProduto());
-        venda.setDescricaoProduto(produtoSel.getNome());
+        
+        venda.setDadosProduto(new Produto(produtoSel.getIdProduto(), produtoSel.getNome()));
+        
         venda.setQuantidade(Integer.parseInt(this.jTxtQuantidade.getText()));
         
         vendaItemTModel.addVendaItem(venda);

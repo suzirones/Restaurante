@@ -11,7 +11,17 @@ public class Produto {
     public Produto(int idProduto) {
         this.idProduto = idProduto;
     }
-   
+
+    public Produto(int idProduto, String nome) {
+        this.idProduto = idProduto;
+        this.nome = nome;
+    }
+
+    public Produto(int idProduto, double valor) {
+        this.idProduto = idProduto;
+        this.valor = valor;
+    }
+
    public int getIdProduto() {
         return idProduto;
     }

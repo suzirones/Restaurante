@@ -2,26 +2,26 @@ package Entidade;
 
 public class VendaItem {
 
-    private int IdProduto;
-    private String DescricaoProduto;
+    private int IdVendaItem;
+    private Produto DadosProduto;
     private int Quantidade;
 
-    public int getIdProduto() {
-        return IdProduto;
+    public int getIdVendaItem() {
+        return IdVendaItem;
     }
 
-    public void setIdProduto(int IdProduto) {
-        this.IdProduto = IdProduto;
+    public void setIdVendaItem(int IdVendaItem) {
+        this.IdVendaItem = IdVendaItem;
     }
 
-    public String getDescricaoProduto() {
-        return DescricaoProduto;
+    public Produto getDadosProduto() {
+        return DadosProduto;
     }
 
-    public void setDescricaoProduto(String DescricaoProduto) {
-        this.DescricaoProduto = DescricaoProduto;
+    public void setDadosProduto(Produto DadosProduto) {
+        this.DadosProduto = DadosProduto;
     }
-
+    
     public int getQuantidade() {
         return Quantidade;
     }
