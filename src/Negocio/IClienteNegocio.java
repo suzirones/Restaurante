@@ -4,8 +4,9 @@ import Entidade.Cliente;
 import java.util.ArrayList;
 
 public interface IClienteNegocio {
-    int inserirCliente(Cliente cliente);
+    boolean inserirCliente(Cliente cliente);
+    boolean atualizarCliente (Cliente cliente);
+    boolean excluirCliente(String cpf);
     ArrayList<Cliente> listaClienteTodos();
-    Cliente listaClientePorNome(String nome);
-    boolean excluirCliente(int idCliente);
+    Cliente listaClientePorCPF(String cpf);
 }

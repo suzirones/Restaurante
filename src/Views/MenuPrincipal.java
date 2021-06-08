@@ -1,6 +1,7 @@
 package Views;
 
 import java.awt.Component;
+import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -16,15 +17,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuCliente = new javax.swing.JMenuItem();
+        jMenuProdutos = new javax.swing.JMenuItem();
+        jMenuPedidos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuConsClientes = new javax.swing.JMenuItem();
+        jMenuConsProdutos = new javax.swing.JMenuItem();
+        jMenuConsPedidos = new javax.swing.JMenuItem();
 
         jMenuItem7.setText("jMenuItem7");
 
@@ -44,73 +43,57 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastro");
 
-        jMenuItem1.setText("Cliente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCliente.setText("Cliente");
+        jMenuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuCliente);
 
-        jMenuItem3.setText("Garçom");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuProdutos.setText("Produtos");
+        jMenuProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuProdutosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jMenuProdutos);
 
-        jMenuItem4.setText("Produtos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuPedidos.setText("Pedidos");
+        jMenuPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuPedidosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem8.setText("Vendas");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem8);
+        jMenu1.add(jMenuPedidos);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Consultas");
 
-        jMenuItem5.setText("Clientes");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuConsClientes.setText("Clientes");
+        jMenuConsClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuConsClientesActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        jMenu3.add(jMenuConsClientes);
 
-        jMenuItem2.setText("Garçons");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuConsProdutos.setText("Produtos");
+        jMenuConsProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuConsProdutosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(jMenuConsProdutos);
 
-        jMenuItem6.setText("Produtos");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuConsPedidos.setText("Pedidos");
+        jMenuConsPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuConsPedidosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem6);
-
-        jMenuItem9.setText("Vendas");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem9);
+        jMenu3.add(jMenuConsPedidos);
 
         jMenuBar1.add(jMenu3);
 
@@ -134,55 +117,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuConsClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsClientesActionPerformed
+        InternalConsultaClientes consultaclientes = new InternalConsultaClientes();
+        DesktopPane.add(consultaclientes);
+        consultaclientes.setVisible(true);
+    }//GEN-LAST:event_jMenuConsClientesActionPerformed
+
+    private void jMenuConsProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsProdutosActionPerformed
+        InternalConsultaProdutos consultaProdutos = new InternalConsultaProdutos();
+        DesktopPane.add(consultaProdutos);
+        consultaProdutos.setVisible(true);
+    }//GEN-LAST:event_jMenuConsProdutosActionPerformed
+
+    private void jMenuConsPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsPedidosActionPerformed
+        JOptionPane.showMessageDialog(null, "Consulta Pedidos!");
+    }//GEN-LAST:event_jMenuConsPedidosActionPerformed
+
+    private void jMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPedidosActionPerformed
+        JOptionPane.showMessageDialog(null, "Cadastro Pedidos!");
+    }//GEN-LAST:event_jMenuPedidosActionPerformed
+
+    private void jMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProdutosActionPerformed
+        InternalCadastroProduto cadastroProdutos = new InternalCadastroProduto();
+        DesktopPane.add(cadastroProdutos);
+        cadastroProdutos.setVisible(true);
+    }//GEN-LAST:event_jMenuProdutosActionPerformed
+
+    private void jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuClienteActionPerformed
         // TODO add your handling code here:
         InternalCadastroCliente cadastrocliente = new InternalCadastroCliente();
         DesktopPane.add(cadastrocliente);
         cadastrocliente.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        InternalConsultaClientes consultaclientes = new InternalConsultaClientes();
-        DesktopPane.add(consultaclientes);
-        consultaclientes.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        InternalConsultaGarcons consultagarcons = new InternalConsultaGarcons();
-        DesktopPane.add(consultagarcons);
-        consultagarcons.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        InternalCadastroGarcom cadastrogarcons = new InternalCadastroGarcom();
-        DesktopPane.add(cadastrogarcons);
-        cadastrogarcons.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        InternalCadastroProduto cadastroProdutos = new InternalCadastroProduto();
-        DesktopPane.add(cadastroProdutos);
-        cadastroProdutos.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        InternalConsultaProdutos consultaProdutos = new InternalConsultaProdutos();
-        DesktopPane.add(consultaProdutos);
-        consultaProdutos.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        InternalConsultaVendas consultaVendas = new InternalConsultaVendas();
-        DesktopPane.add(consultaVendas);
-        consultaVendas.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        InternalCadastroVenda cadastroVenda = new InternalCadastroVenda();
-        DesktopPane.add(cadastroVenda);
-        cadastroVenda.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_jMenuClienteActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -224,14 +191,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuCliente;
+    private javax.swing.JMenuItem jMenuConsClientes;
+    private javax.swing.JMenuItem jMenuConsPedidos;
+    private javax.swing.JMenuItem jMenuConsProdutos;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuPedidos;
+    private javax.swing.JMenuItem jMenuProdutos;
     // End of variables declaration//GEN-END:variables
 }

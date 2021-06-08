@@ -4,9 +4,9 @@ import Entidade.Produto;
 import java.util.ArrayList;
 
 public interface IProdutoNegocio {
-
-    int inserirProduto(Produto produto);
+    boolean inserirProduto(Produto produto);
+    boolean excluirProduto(int codigo);
+    boolean alterarProduto(Produto produto);
     ArrayList<Produto> listaProdutoTodos();
-    Produto listaProdutoPorNome(String nome);
-    boolean excluirProduto(int idProduto);
+    Produto listaProdutoPorCodigo(int codigo);
 }

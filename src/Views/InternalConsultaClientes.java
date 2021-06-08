@@ -28,11 +28,10 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
              for (Cliente cliente : listaCliente) {
                  model.addRow(new Object[] 
                 {
-                   cliente.getIdCliente(),
+                   cliente.getCpf(),
                    cliente.getNome(),
-                   cliente.getTelefone(),
-                   cliente.getEmail(),
-                   cliente.getSexo(),
+                   cliente.getFone(),
+                   cliente.getEndereco()
                 }); 
              }
               
@@ -48,8 +47,6 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        ButtonExcluir = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -61,27 +58,25 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "idcliente", "nome", "telefone", "email", "sexo"
+                "CPF", "Nome", "Telefone", "Endereço"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        jScrollPane1.setViewportView(jTable1);
 
-        ButtonExcluir.setText("Excluir");
-        ButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonExcluirActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        jLabel2.setText("Deseja excluir cadastro? ");
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,12 +89,7 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(267, 267, 267)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel2)
-                        .addGap(59, 59, 59)
-                        .addComponent(ButtonExcluir)))
+                        .addComponent(jLabel1)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,46 +99,15 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(ButtonExcluir))
-                .addGap(39, 39, 39))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExcluirActionPerformed
-        
-        try {
-            
-            ((DefaultTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
-
-            String idExcluir = JOptionPane.showInputDialog("Confirme o ID do cliente que deseja Excluir!");
-            int idCliente = Integer.parseInt(idExcluir);
-        
-            IClienteNegocio clienteNegocio = new ClienteNegocio();
-            boolean isSucesso = clienteNegocio.excluirCliente(idCliente);
-        
-            if(isSucesso) {
-                    JOptionPane.showMessageDialog(null, "Exclusão realizada com Sucesso!");
-            }else {
-                    JOptionPane.showMessageDialog(null, "Exclusão Não Realizada!");
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        
-    }//GEN-LAST:event_ButtonExcluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonExcluir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

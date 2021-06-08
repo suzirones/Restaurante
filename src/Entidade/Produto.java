@@ -1,33 +1,16 @@
 package Entidade;
 
 public class Produto {
-   private int idProduto;
+   private int codigo;
    private String nome;
-   private double valor;
+   private double preco;
 
-    public Produto() {
+    public int getCodigo() {
+        return codigo;
     }
 
-    public Produto(int idProduto) {
-        this.idProduto = idProduto;
-    }
-
-    public Produto(int idProduto, String nome) {
-        this.idProduto = idProduto;
-        this.nome = nome;
-    }
-
-    public Produto(int idProduto, double valor) {
-        this.idProduto = idProduto;
-        this.valor = valor;
-    }
-
-   public int getIdProduto() {
-        return idProduto;
-    }
-
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -38,16 +21,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public double getValor() {
-        return valor;
+    public double getPreco() {
+        return preco;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    @Override
-    public String toString() {
-        return nome;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 }

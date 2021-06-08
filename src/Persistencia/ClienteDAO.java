@@ -14,35 +14,30 @@ public class ClienteDAO {
         conexao = new ConexaoBD();
     }
     
-    public int inserirCliente(Cliente cliente) throws Exception {
-    	
-    	int isSucesso = 0;
-    	
-    	try{
+    public boolean inserirCliente(Cliente cliente) throws Exception {
+    	boolean sucesso = false;
+        
+        try{
             Connection connection = conexao.getConnection();
             
-            String sql = "INSERT INTO cliente(nome, telefone, email, sexo, datanascimento, ativo) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cliente(cpf, nome, fone, endereco) VALUES (?, ?, ?, ?)";
             
             PreparedStatement ps = connection.prepareStatement(sql);
             
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getTelefone());
-            ps.setString(3, cliente.getEmail());
-            ps.setString(4, cliente.getSexo());
-            ps.setString(5, cliente.getDatanascimento());
-            ps.setInt(6, 1);
+            ps.setString(1, cliente.getCpf());
+            ps.setString(2, cliente.getNome());
+            ps.setString(3, cliente.getFone());
+            ps.setString(4, cliente.getEndereco());
             
-            System.out.println(sql);
-            
-            isSucesso = ps.executeUpdate();
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
             
             connection.close();
+            return sucesso;
         }catch(Exception e){
             throw new Exception(e);
         }
-        
-      return isSucesso;
-    }
+}
 
     public ArrayList<Cliente> listaClienteTodos() throws Exception {
     	
@@ -56,14 +51,12 @@ public class ClienteDAO {
         	
         	while(resultado.next()) {
         		Cliente cliente = new Cliente();
-        		cliente.setIdCliente(resultado.getInt("idcliente"));
+        		cliente.setCpf(resultado.getString("cpf"));
         		cliente.setNome(resultado.getString("nome"));
-        		cliente.setTelefone(resultado.getString("telefone"));
-        		cliente.setEmail(resultado.getString("email"));
-        		cliente.setSexo(resultado.getString("sexo"));
-        		cliente.setDatanascimento(resultado.getString("datanascimento"));
-                    
-        		listaCliente.add(cliente);
+        		cliente.setFone(resultado.getString("fone"));
+        		cliente.setEndereco(resultado.getString("endereco"));
+
+                        listaCliente.add(cliente);
         	}
         	
         	connection.close();
@@ -75,30 +68,26 @@ public class ClienteDAO {
         return listaCliente;
     }
 
-    public Cliente listaClientePorNome(String nome) throws Exception {
+    public Cliente listaClientePorCPF(String cpf) throws Exception {
     	
     	Cliente cliente = new Cliente();
     	
         try {
-            
-            JOptionPane.showMessageDialog(null, "Inicio Consulta");
-        	String sql = "select * from cliente where nome = ? and ativo = 1";
-        	Connection connection = conexao.getConnection();
-        	PreparedStatement ps = connection.prepareStatement(sql);
-        	ps.setString(1, nome);
-        	ResultSet resultado = ps.executeQuery();
-        	
-        	if(resultado.next()) {
-        		cliente.setIdCliente(resultado.getInt("idcliente"));
-        		cliente.setNome(resultado.getString("nome"));
-        		cliente.setTelefone(resultado.getString("telefone"));
-        		cliente.setEmail(resultado.getString("email"));
-        		cliente.setSexo(resultado.getString("sexo"));
-                        cliente.setDatanascimento(resultado.getString("datanascimento"));
-               	}
-        	
-        	connection.close();
-        	
+            String sql = "select * from cliente where cpf = ?";
+            Connection connection = conexao.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, cpf);
+            ResultSet resultado = ps.executeQuery();
+
+            if(resultado.next()) {
+                    cliente.setCpf(resultado.getString("cpf"));
+                    cliente.setNome(resultado.getString("nome"));
+                    cliente.setFone(resultado.getString("fone"));
+                    cliente.setEndereco(resultado.getString("endereco"));
+            }
+
+            connection.close();
+
         }catch(Exception e){
             throw new Exception(e);
         }
@@ -106,24 +95,48 @@ public class ClienteDAO {
         return cliente;
     }
 
-    public boolean excluirCliente(int idCliente) throws Exception {
+    public boolean excluirCliente(String cpf) throws Exception {
+        boolean sucesso = false;
         
         try {
-        
-        	Connection connection = conexao.getConnection();
-            //String sql = "delete from cliente where idcliente = ?";
-        	String sql = "update cliente set ativo = 0 where idcliente = ?";
+            Connection connection = conexao.getConnection();
+            String sql = "delete from cliente where cpf = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, idCliente);
-            
-            ps.execute();
+            ps.setString(1, cpf);
+
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
             
             connection.close();
+            return sucesso;
         }
         catch(Exception e){
             throw new Exception(e);
         }
+    }
+
+    public boolean atualizarCliente(Cliente cliente) throws Exception {
+        boolean sucesso = false;
         
-        return true;
+        try {
+            Connection connection = conexao.getConnection();
+
+            String sql = "update cliente set nome = ?, fone = ?, endereco = ? where cpf = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getFone());
+            ps.setString(3, cliente.getEndereco());
+            ps.setString(4, cliente.getCpf());
+            
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
+            
+            connection.close();
+            return sucesso;
+        }
+        catch(Exception e){
+            throw new Exception(e);
+        }
     }
 }

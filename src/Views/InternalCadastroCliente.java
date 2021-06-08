@@ -5,19 +5,29 @@ import javax.swing.JOptionPane;
 import Entidade.Cliente;
 import Negocio.ClienteNegocio;
 import Negocio.IClienteNegocio;
-import java.util.HashSet;
+import java.text.ParseException;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 public class InternalCadastroCliente extends javax.swing.JInternalFrame {
 
     private Object ComboBoxTipoCliente;
-
-    public InternalCadastroCliente() {
+    
+    public InternalCadastroCliente() throws ParseException {
         initComponents();
+        
+        MaskFormatter formatacaoCPF = new MaskFormatter("###.###.###-##");
+        formatacaoCPF.setPlaceholderCharacter(' ');  
+        formatacaoCPF.setValueContainsLiteralCharacters(false);
+        FieldCpf.setFormatterFactory(new DefaultFormatterFactory(formatacaoCPF));
+
+        MaskFormatter formatacaoTelefone = new MaskFormatter("(##) #####-####");
+        formatacaoTelefone.setPlaceholderCharacter(' ');
+        formatacaoTelefone.setValueContainsLiteralCharacters(false);
+        FieldTelefone.setFormatterFactory(new DefaultFormatterFactory(formatacaoTelefone));
+        
         FieldNome.setText("");
-        FieldEmail.setText("");
-        FieldDataNascimento.setText("");
-        FieldTelefone.setText("");
-        FieldDataNascimento.setText("");
+        FieldEndereco.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -29,38 +39,29 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         FieldNome = new javax.swing.JTextField();
-        FieldTelefone = new javax.swing.JTextField();
-        FieldEmail = new javax.swing.JTextField();
-        ComboBoxSexo = new javax.swing.JComboBox<>();
-        FieldDataNascimento = new javax.swing.JTextField();
+        FieldEndereco = new javax.swing.JTextField();
         btSalvar = new javax.swing.JButton();
+        FieldCpf = new javax.swing.JFormattedTextField();
+        FieldTelefone = new javax.swing.JFormattedTextField();
+        btExcluir = new javax.swing.JButton();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Cadastro Cliente");
 
-        jLabel2.setText("Nome");
+        jLabel2.setText("CPF");
 
         jLabel3.setText("Telefone");
 
-        jLabel4.setText("Email");
+        jLabel4.setText("Nome");
 
-        jLabel5.setText("Sexo");
-
-        jLabel6.setText("Data Nascimento");
+        jLabel5.setText("Endereço");
 
         FieldNome.setText("Digite Nome");
 
-        FieldTelefone.setText("Digite o telefone");
-
-        FieldEmail.setText("Digite o e-mail");
-
-        ComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
-
-        FieldDataNascimento.setText("dd/mm/aaaa");
+        FieldEndereco.setText("Digite o endereço");
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,70 +70,73 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        FieldCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FieldCpfFocusLost(evt);
+            }
+        });
+
+        FieldTelefone.setText("jFormattedTextField1");
+
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FieldEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FieldNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(FieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(FieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(70, 70, 70))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FieldEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                            .addComponent(FieldNome)
+                            .addComponent(FieldCpf)
+                            .addComponent(FieldTelefone)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(254, 254, 254)
-                        .addComponent(btSalvar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btExcluir)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(FieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(FieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(FieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addComponent(FieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btSalvar)
+                    .addComponent(btSalvar)
+                    .addComponent(btExcluir))
                 .addGap(42, 42, 42))
         );
 
@@ -146,23 +150,20 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
 
             //preenchendo variaveis
             cliente.setNome(FieldNome.getText());
-            cliente.setTelefone(FieldTelefone.getText());
-            cliente.setEmail(FieldEmail.getText());
-            cliente.setSexo(ComboBoxSexo.getSelectedItem().toString().substring(0,1));
-            cliente.setDatanascimento(FieldDataNascimento.getText());
+            cliente.setFone(retirarCaracteres(FieldTelefone.getText()));
+            cliente.setEndereco(FieldEndereco.getText());
+            cliente.setCpf(retirarCaracteres(FieldCpf.getText()));
 
             //Salvar
             IClienteNegocio clienteNegocio = new ClienteNegocio();
-            boolean isSucesso = clienteNegocio.inserirCliente(cliente) == 1 ? true : false;
 
-            if (isSucesso) {
-                JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
-                FieldNome.setText("");
-                FieldEmail.setText("");
-                FieldDataNascimento.setText("");
-                FieldTelefone.setText("");
-                FieldDataNascimento.setText("");
+            if (clienteNegocio.atualizarCliente(cliente)) {
+                JOptionPane.showMessageDialog(null, "Cliente Atualizado com Sucesso!");
             } else {
+                if (clienteNegocio.inserirCliente(cliente)) {
+                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
+                }
+                
                 JOptionPane.showMessageDialog(null, "Cliente Não Cadastrado!");
             }
         } catch (Exception e) {
@@ -170,19 +171,52 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    private void FieldCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FieldCpfFocusLost
+        IClienteNegocio clienteNegocio = new ClienteNegocio();
+        Cliente cliente = clienteNegocio.listaClientePorCPF(retirarCaracteres(FieldCpf.getText()));
+
+        if (cliente.getCpf().equals(retirarCaracteres(FieldCpf.getText()))) {
+            FieldNome.setText(cliente.getNome());
+            FieldEndereco.setText(cliente.getEndereco());
+            FieldTelefone.setText(cliente.getFone());
+        }
+    }//GEN-LAST:event_FieldCpfFocusLost
+
+    private String retirarCaracteres(String parametro) {
+        return parametro.replace("(", "").replace(")", "").replace("-", "").replace(".", "").replace(" ", "");
+    }
+    
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        try {
+            //Salvar
+            IClienteNegocio clienteNegocio = new ClienteNegocio();
+
+            if (clienteNegocio.excluirCliente(FieldCpf.getText().replace(".", "").replace("-",""))) {
+                FieldNome.setText("");
+                FieldEndereco.setText("");
+                FieldCpf.setText("");
+                FieldTelefone.setText("");
+                JOptionPane.showMessageDialog(null, "Cliente Excluído com Sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente Não Excluído!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBoxSexo;
-    private javax.swing.JTextField FieldDataNascimento;
-    private javax.swing.JTextField FieldEmail;
+    private javax.swing.JFormattedTextField FieldCpf;
+    private javax.swing.JTextField FieldEndereco;
     private javax.swing.JTextField FieldNome;
-    private javax.swing.JTextField FieldTelefone;
+    private javax.swing.JFormattedTextField FieldTelefone;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

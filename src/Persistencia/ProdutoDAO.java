@@ -15,32 +15,29 @@ public class ProdutoDAO {
         conexao = new ConexaoBD();
     }
 
-    public int inserirProduto(Produto produto) throws Exception {
-
-        int isSucesso = 0;
+    public boolean inserirProduto(Produto produto) throws Exception {
+        int linhasAfetadas = 0;
         DecimalFormat df = new DecimalFormat("#.00");
         
         try {
             Connection connection = conexao.getConnection();
 
-            String sql = "INSERT INTO produto(nome, valor_unitario, ativo) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO produto(nome, preco) VALUES (?, ?)";
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, produto.getNome());
-            ps.setString(2, String.valueOf(produto.getValor()).replace(',','.'));
-            ps.setInt(3, 1);
+            ps.setString(2, String.valueOf(produto.getPreco()).replace(',','.'));
 
             System.out.println(sql);
 
-            isSucesso = ps.executeUpdate();
+            linhasAfetadas = ps.executeUpdate();
 
             connection.close();
+            return linhasAfetadas > 0;
         } catch (Exception e) {
             throw new Exception(e);
-        }
-
-        return isSucesso;
+        } 
     }
 
     public ArrayList<Produto> listaProdutoTodos() throws Exception {
@@ -55,9 +52,9 @@ public class ProdutoDAO {
 
             while (resultado.next()) {
                 Produto produto = new Produto();
-                produto.setIdProduto(resultado.getInt("idproduto"));
+                produto.setCodigo(resultado.getInt("codigo"));
                 produto.setNome(resultado.getString("nome"));
-                produto.setValor(resultado.getDouble("valor_unitario"));
+                produto.setPreco(resultado.getDouble("preco"));
 
                 listaProduto.add(produto);
             }
@@ -71,21 +68,41 @@ public class ProdutoDAO {
         return listaProduto;
     }
 
-    public Produto listaProdutoPorNome(String nome) throws Exception {
+    public boolean alterarProduto(Produto produto) throws Exception {
 
+        try {
+            Connection connection = conexao.getConnection();
+            String sql = "update produto set nome = ?, preco = ? where codigo = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, produto.getNome());
+            ps.setString(2, String.valueOf(produto.getPreco()).replace(',','.'));
+            ps.setInt(3, produto.getCodigo());
+            
+            ps.execute();
+
+            connection.close();
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+
+        return true;
+    }
+
+    public Produto listaProdutoPorCodigo(int codigo) throws Exception {
         Produto produto = new Produto();
 
         try {
-            String sql = "select * from produto where nome = ? and ativo = 1";
+            String sql = "select * from produto where codigo = ?";
             Connection connection = conexao.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, nome);
+            ps.setInt(1, codigo);
             ResultSet resultado = ps.executeQuery();
 
             if (resultado.next()) {
-                produto.setIdProduto(resultado.getInt("idproduto"));
+                produto.setCodigo(resultado.getInt("codigo"));
                 produto.setNome(resultado.getString("nome"));
-                produto.setValor(resultado.getDouble("valor_unitario"));
+                produto.setPreco(resultado.getDouble("preco"));
             }
 
             connection.close();
@@ -97,14 +114,15 @@ public class ProdutoDAO {
         return produto;
     }
 
-    public boolean excluirProduto(int idProduto) throws Exception {
+    public boolean excluirProduto(int codigo) throws Exception {
 
         try {
             Connection connection = conexao.getConnection();
-            String sql = "update produto set ativo = 0 where idproduto = ?";
+            String sql = "delete produto where codigo = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, idProduto);
 
+            ps.setInt(1, codigo);
+            
             ps.execute();
 
             connection.close();

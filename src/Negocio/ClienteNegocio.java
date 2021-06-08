@@ -16,14 +16,14 @@ public class ClienteNegocio implements IClienteNegocio {
 
     
     @Override
-    public int inserirCliente(Cliente cliente) {
+    public boolean inserirCliente(Cliente cliente) {
         try {
             return clienteDAO.inserirCliente(cliente);
         } catch (Exception ex) {
             Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return -1;
+        return false;
     }
     
     @Override
@@ -38,26 +38,35 @@ public class ClienteNegocio implements IClienteNegocio {
     }
 
     @Override
-    public Cliente listaClientePorNome(String nome) {
+    public boolean excluirCliente(String cpf) {
         try {
-            return clienteDAO.listaClientePorNome(nome);
+            return clienteDAO.excluirCliente(cpf);
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+
+    @Override
+    public boolean atualizarCliente(Cliente cliente) {
+        try {
+            return clienteDAO.atualizarCliente(cliente);
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+
+    @Override
+    public Cliente listaClientePorCPF(String cpf) {
+        try {
+            return clienteDAO.listaClientePorCPF(cpf);
         } catch (Exception ex) {
             Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return new Cliente();
-    }
-
-    @Override
-    public boolean excluirCliente(int idCliente) {
-        boolean resultado = false;
-        
-        try {
-            resultado = clienteDAO.excluirCliente(idCliente);
-        } catch (Exception ex) {
-            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return resultado;
     }
 }

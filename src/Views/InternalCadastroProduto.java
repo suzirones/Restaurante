@@ -99,13 +99,12 @@ public class InternalCadastroProduto extends javax.swing.JInternalFrame {
 
             //preenchendo variaveis
             produto.setNome(FieldNome.getText());
-            produto.setValor(Double.parseDouble(FieldValor.getText().replace(",", ".")));
+            produto.setPreco(Double.parseDouble(FieldValor.getText().replace(",", ".")));
             
             //Salvar
             IProdutoNegocio produtoNegocio = new ProdutoNegocio();
-            boolean isSucesso = produtoNegocio.inserirProduto(produto) == 1 ? true : false;
-
-            if (isSucesso) {
+            
+            if (produtoNegocio.inserirProduto(produto)) {
                 JOptionPane.showMessageDialog(null, "Produto Cadastrado com Sucesso!");
                 FieldNome.setText("");
                 FieldValor.setText("");

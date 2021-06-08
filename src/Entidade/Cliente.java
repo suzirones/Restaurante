@@ -2,26 +2,17 @@ package Entidade;
 
 public class Cliente {
     
-    private int idCliente;
+    private String cpf;
     private String nome;
-    private String telefone;
-    private String email;
-    private String sexo;
-    private String datanascimento;
+    private String fone;
+    private String endereco;
 
-    public Cliente() {
+    public String getCpf() {
+        return cpf;
     }
 
-    public Cliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-    
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -32,40 +23,19 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getFone() {
+        return fone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setFone(String fone) {
+        this.fone = fone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getDatanascimento() {
-         return datanascimento;
-    }
-
-    public void setDatanascimento(String datanascimento) {
-         this.datanascimento = datanascimento;
-    }
-
-    @Override
-    public String toString() {
-        return nome;
-    }
-}
+ }

@@ -16,14 +16,26 @@ public class ProdutoNegocio implements IProdutoNegocio {
 
     
     @Override
-    public int inserirProduto(Produto produto) {
+    public boolean inserirProduto(Produto produto) {
         try {
             return produtoDAO.inserirProduto(produto);
         } catch (Exception ex) {
             Logger.getLogger(ProdutoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return -1;
+        return false;
+    }
+
+    @Override
+    public boolean alterarProduto(Produto produto) {
+        try {
+            return produtoDAO.alterarProduto(produto);
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+
     }
     
     @Override
@@ -38,9 +50,9 @@ public class ProdutoNegocio implements IProdutoNegocio {
     }
 
     @Override
-    public Produto listaProdutoPorNome(String nome) {
+    public Produto listaProdutoPorCodigo(int codigo) {
         try {
-            return produtoDAO.listaProdutoPorNome(nome);
+            return produtoDAO.listaProdutoPorCodigo(codigo);
         } catch (Exception ex) {
             Logger.getLogger(ProdutoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,15 +61,13 @@ public class ProdutoNegocio implements IProdutoNegocio {
     }
 
     @Override
-    public boolean excluirProduto(int idProduto) {
-        boolean resultado = false;
-        
+    public boolean excluirProduto(int codigo) {
         try {
-            resultado = produtoDAO.excluirProduto(idProduto);
+            return produtoDAO.excluirProduto(codigo);
         } catch (Exception ex) {
             Logger.getLogger(ProdutoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return resultado;
+        return false;
     }
 }

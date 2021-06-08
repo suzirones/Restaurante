@@ -28,9 +28,9 @@ public class InternalConsultaProdutos extends javax.swing.JInternalFrame {
              for (Produto produto : listaProduto) {
                  model.addRow(new Object[] 
                 {
-                   produto.getIdProduto(),
+                   produto.getCodigo(),
                    produto.getNome(),
-                   produto.getValor(),
+                   produto.getPreco(),
                 }); 
              }
               
