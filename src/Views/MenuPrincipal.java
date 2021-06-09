@@ -144,11 +144,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuProdutosActionPerformed
 
     private void jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuClienteActionPerformed
-        // TODO add your handling code here:
         InternalCadastroCliente cadastrocliente = new InternalCadastroCliente();
         DesktopPane.add(cadastrocliente);
         cadastrocliente.setVisible(true);
-
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     public static void main(String args[]) {

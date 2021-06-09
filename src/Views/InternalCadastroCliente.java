@@ -13,18 +13,9 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
 
     private Object ComboBoxTipoCliente;
     
-    public InternalCadastroCliente() throws ParseException {
+    public InternalCadastroCliente() {
         initComponents();
-        
-        MaskFormatter formatacaoCPF = new MaskFormatter("###.###.###-##");
-        formatacaoCPF.setPlaceholderCharacter(' ');  
-        formatacaoCPF.setValueContainsLiteralCharacters(false);
-        FieldCpf.setFormatterFactory(new DefaultFormatterFactory(formatacaoCPF));
-
-        MaskFormatter formatacaoTelefone = new MaskFormatter("(##) #####-####");
-        formatacaoTelefone.setPlaceholderCharacter(' ');
-        formatacaoTelefone.setValueContainsLiteralCharacters(false);
-        FieldTelefone.setFormatterFactory(new DefaultFormatterFactory(formatacaoTelefone));
+        PrepareTela();
         
         FieldNome.setText("");
         FieldEndereco.setText("");
@@ -143,6 +134,23 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void PrepareTela()  {
+        
+        try {
+            MaskFormatter formatacaoCPF = new MaskFormatter("###.###.###-##");
+            formatacaoCPF.setPlaceholderCharacter(' ');  
+            formatacaoCPF.setValueContainsLiteralCharacters(false);
+            FieldCpf.setFormatterFactory(new DefaultFormatterFactory(formatacaoCPF));
+
+            MaskFormatter formatacaoTelefone = new MaskFormatter("(##) #####-####");
+            formatacaoTelefone.setPlaceholderCharacter(' ');
+            formatacaoTelefone.setValueContainsLiteralCharacters(false);
+            FieldTelefone.setFormatterFactory(new DefaultFormatterFactory(formatacaoTelefone));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         try {
@@ -162,9 +170,9 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
             } else {
                 if (clienteNegocio.inserirCliente(cliente)) {
                     JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cliente Não Cadastrado!");
                 }
-                
-                JOptionPane.showMessageDialog(null, "Cliente Não Cadastrado!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
