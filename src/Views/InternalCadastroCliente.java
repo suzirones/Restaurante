@@ -166,9 +166,11 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
             IClienteNegocio clienteNegocio = new ClienteNegocio();
 
             if (clienteNegocio.atualizarCliente(cliente)) {
+                LimparCampos();
                 JOptionPane.showMessageDialog(null, "Cliente Atualizado com Sucesso!");
             } else {
                 if (clienteNegocio.inserirCliente(cliente)) {
+                    LimparCampos();
                     JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente Não Cadastrado!");
@@ -179,14 +181,31 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    private void LimparCampos() {
+        FieldNome.setText("");
+        FieldTelefone.setText("");
+        FieldEndereco.setText("");
+        FieldCpf.setText("");
+    }
+    
     private void FieldCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FieldCpfFocusLost
         IClienteNegocio clienteNegocio = new ClienteNegocio();
         Cliente cliente = clienteNegocio.listaClientePorCPF(retirarCaracteres(FieldCpf.getText()));
 
-        if (cliente.getCpf().equals(retirarCaracteres(FieldCpf.getText()))) {
-            FieldNome.setText(cliente.getNome());
-            FieldEndereco.setText(cliente.getEndereco());
-            FieldTelefone.setText(cliente.getFone());
+        try {
+        
+            if (cliente.getCpf() != null) {
+                FieldEndereco.setText(cliente.getEndereco());
+                FieldTelefone.setText(cliente.getFone());
+                FieldNome.setText(cliente.getNome());
+            } else {
+                FieldNome.setText("");
+                FieldEndereco.setText("");
+                FieldTelefone.setText("");
+            }    
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_FieldCpfFocusLost
 
@@ -196,10 +215,9 @@ public class InternalCadastroCliente extends javax.swing.JInternalFrame {
     
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            //Salvar
             IClienteNegocio clienteNegocio = new ClienteNegocio();
 
-            if (clienteNegocio.excluirCliente(FieldCpf.getText().replace(".", "").replace("-",""))) {
+            if (clienteNegocio.excluirCliente(retirarCaracteres(FieldCpf.getText()))) {
                 FieldNome.setText("");
                 FieldEndereco.setText("");
                 FieldCpf.setText("");

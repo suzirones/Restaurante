@@ -16,25 +16,25 @@ public class ProdutoDAO {
     }
 
     public boolean inserirProduto(Produto produto) throws Exception {
-        int linhasAfetadas = 0;
+        boolean sucesso = false;
         DecimalFormat df = new DecimalFormat("#.00");
         
         try {
             Connection connection = conexao.getConnection();
 
-            String sql = "INSERT INTO produto(nome, preco) VALUES (?, ?)";
+            String sql = "INSERT INTO produto(codigo, nome, preco) VALUES (?, ?, ?)";
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setString(1, produto.getNome());
-            ps.setString(2, String.valueOf(produto.getPreco()).replace(',','.'));
+            ps.setInt(1, produto.getCodigo());
+            ps.setString(2, produto.getNome());
+            ps.setDouble(3, produto.getPreco());
 
-            System.out.println(sql);
-
-            linhasAfetadas = ps.executeUpdate();
-
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
+            
             connection.close();
-            return linhasAfetadas > 0;
+            return sucesso;
         } catch (Exception e) {
             throw new Exception(e);
         } 
@@ -68,25 +68,26 @@ public class ProdutoDAO {
         return listaProduto;
     }
 
-    public boolean alterarProduto(Produto produto) throws Exception {
-
+    public boolean atualizarProduto(Produto produto) throws Exception {
+        boolean sucesso = false;
+        
         try {
             Connection connection = conexao.getConnection();
             String sql = "update produto set nome = ?, preco = ? where codigo = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, produto.getNome());
-            ps.setString(2, String.valueOf(produto.getPreco()).replace(',','.'));
+            ps.setDouble(2, produto.getPreco());
             ps.setInt(3, produto.getCodigo());
             
-            ps.execute();
-
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
+            
             connection.close();
+            return sucesso;
         } catch (Exception e) {
             throw new Exception(e);
         }
-
-        return true;
     }
 
     public Produto listaProdutoPorCodigo(int codigo) throws Exception {
@@ -115,21 +116,22 @@ public class ProdutoDAO {
     }
 
     public boolean excluirProduto(int codigo) throws Exception {
-
+        boolean sucesso = false;
+        
         try {
             Connection connection = conexao.getConnection();
-            String sql = "delete produto where codigo = ?";
+            String sql = "delete from produto where codigo = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setInt(1, codigo);
             
-            ps.execute();
-
+            int linhasAfetadas = ps.executeUpdate();
+            sucesso = (linhasAfetadas>0);
+            
             connection.close();
+            return sucesso;
         } catch (Exception e) {
             throw new Exception(e);
         }
-
-        return true;
     }
 }

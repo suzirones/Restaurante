@@ -26,11 +26,17 @@ public class InternalConsultaClientes extends javax.swing.JInternalFrame {
             model.setNumRows(0);
             
              for (Cliente cliente : listaCliente) {
+                 
+                 String telefone = "";
+                 if (cliente.getFone().length()>0) {
+                     telefone = "("+cliente.getFone().substring(0,2)+") "+cliente.getFone().substring(2,7)+"-"+cliente.getFone().substring(7,11);
+                 }
+                 
                  model.addRow(new Object[] 
                 {
-                   cliente.getCpf(),
+                   cliente.getCpf().substring(0,3)+"."+cliente.getCpf().substring(3,6)+"."+cliente.getCpf().substring(6,9)+"-"+cliente.getCpf().substring(9,11),
                    cliente.getNome(),
-                   cliente.getFone(),
+                   telefone,
                    cliente.getEndereco()
                 }); 
              }

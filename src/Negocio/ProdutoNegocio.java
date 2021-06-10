@@ -27,9 +27,9 @@ public class ProdutoNegocio implements IProdutoNegocio {
     }
 
     @Override
-    public boolean alterarProduto(Produto produto) {
+    public boolean atualizarProduto(Produto produto) {
         try {
-            return produtoDAO.alterarProduto(produto);
+            return produtoDAO.atualizarProduto(produto);
         } catch (Exception ex) {
             Logger.getLogger(ProdutoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
