@@ -7,6 +7,13 @@ public class Cliente {
     private String fone;
     private String endereco;
 
+    public Cliente() {
+    }
+
+    public Cliente(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getCpf() {
         return cpf;
     }

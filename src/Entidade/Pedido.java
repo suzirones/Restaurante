@@ -2,17 +2,25 @@ package Entidade;
 
 public class Pedido {
 
-    private int numero;
+    private int codigoPedido;
     private Cliente cliente;
     private Produto produto;
     private int quantidade;
+    private double valortotal;
 
-    public int getNumero() {
-        return numero;
+    public Pedido() {
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public Pedido(int codigoPedido) {
+        this.codigoPedido = codigoPedido;
+    }
+
+    public int getCodigoPedido() {
+        return codigoPedido;
+    }
+
+    public void setCodigoPedido(int codigoPedido) {
+        this.codigoPedido = codigoPedido;
     }
 
     public Cliente getCliente() {
@@ -37,5 +45,13 @@ public class Pedido {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public double getValortotal() {
+        return valortotal;
+    }
+
+    public void setValortotal(double valortotal) {
+        this.valortotal = valortotal;
     }
 }

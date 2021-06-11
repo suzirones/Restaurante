@@ -13,7 +13,6 @@ public class ProdutoNegocio implements IProdutoNegocio {
     public ProdutoNegocio() {
         produtoDAO = new ProdutoDAO();
     }
-
     
     @Override
     public boolean inserirProduto(Produto produto) {
