@@ -130,11 +130,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuConsProdutosActionPerformed
 
     private void jMenuConsPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsPedidosActionPerformed
-        JOptionPane.showMessageDialog(null, "Consulta Pedidos!");
+        InternalConsultaPedidos consultaPedidos = new InternalConsultaPedidos();
+        DesktopPane.add(consultaPedidos);
+        consultaPedidos.setVisible(true);
     }//GEN-LAST:event_jMenuConsPedidosActionPerformed
 
     private void jMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPedidosActionPerformed
-        JOptionPane.showMessageDialog(null, "Cadastro Pedidos!");
+        InternalCadastroPedidos cadastroPedidos = new InternalCadastroPedidos();
+        DesktopPane.add(cadastroPedidos);
+        cadastroPedidos.setVisible(true);
     }//GEN-LAST:event_jMenuPedidosActionPerformed
 
     private void jMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProdutosActionPerformed

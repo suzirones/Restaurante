@@ -15,7 +15,7 @@ public class ProdutoComboboxModel extends AbstractListModel implements ComboBoxM
         this.listaProdutos = new ArrayList<>();
     }
 
-        @Override
+    @Override
     public int getSize() {
         return listaProdutos.size();
     }
@@ -38,11 +38,16 @@ public class ProdutoComboboxModel extends AbstractListModel implements ComboBoxM
         return this.produtoSelecionado;
     }
     
+    public void clearSelectedItem() {
+        this.produtoSelecionado = new Produto();
+        fireContentsChanged(this.listaProdutos, 0, this.listaProdutos.size());
+    }
+    
     public void addProdutos(Produto pProduto) {
         this.listaProdutos.add(pProduto);
     }
     
-    private void reset(){
+    public void reset(){
         this.listaProdutos.clear();
     }
 }

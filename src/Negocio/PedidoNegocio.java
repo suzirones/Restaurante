@@ -68,4 +68,15 @@ public class PedidoNegocio implements IPedidoNegocio {
         
         return new ArrayList<Pedido>();
     }
+
+    @Override
+    public int ObterProximoCodigoPedido() {
+        try {
+            return pedidoDAO.ObterProximoCodigoPedido();
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
 }

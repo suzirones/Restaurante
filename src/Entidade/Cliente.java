@@ -14,6 +14,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public Cliente(String cpf, String nome) {
+        this.cpf = cpf;
+        this.nome = nome;
+    }
+
     public String getCpf() {
         return cpf;
     }
@@ -45,4 +50,9 @@ public class Cliente {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
- }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+}

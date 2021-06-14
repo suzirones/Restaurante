@@ -12,6 +12,11 @@ public class Produto {
         this.codigo = codigo;
     }
 
+    public Produto(int codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+
     public int getCodigo() {
         return codigo;
     }
@@ -34,5 +39,10 @@ public class Produto {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

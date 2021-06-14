@@ -25,13 +25,8 @@ public class PedidoDAO {
         try {
             Connection connection = conexao.getConnection();
             
-            String sql = "INSERT INTO produto(numero, cpf_cliente, codigo_produto, quantidade, valortotal) VALUES (?, ?, ?, ?, ?)";
-
-            if (((Pedido)listagemPedidos.get(0)).getCodigoPedido() == 0) {
-                codigoPedido = ObterProximoCodigoPedido(((Pedido)listagemPedidos.get(0)).getCliente().getCpf());
-            } else {
-                codigoPedido = ((Pedido)listagemPedidos.get(0)).getCodigoPedido();
-            }
+            String sql = "INSERT INTO pedido (numero, cpf_cliente, codigo_produto, quantidade, valortotal) VALUES (?, ?, ?, ?, ?)";
+            codigoPedido = ((Pedido)listagemPedidos.get(0)).getCodigoPedido();
                 
             for (Pedido itemPedido: listagemPedidos) {
                 PreparedStatement ps = connection.prepareStatement(sql);
@@ -62,13 +57,13 @@ public class PedidoDAO {
         
         try {
             Connection connection = conexao.getConnection();
-            String sql = "delete from pedido where codigo = ?";
+            String sql = "delete from pedido where numero = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setInt(1, codigoPedido);
             
             int linhasAfetadas = ps.executeUpdate();
-            sucesso = (linhasAfetadas>0);
+            sucesso = (linhasAfetadas > 0);
             
             connection.close();
             return sucesso;
@@ -81,7 +76,7 @@ public class PedidoDAO {
         ArrayList<Pedido> listaPedido = new ArrayList<Pedido>();
 
         try {
-            String sql = "select numero, sum(valortotal) valortotal from pedido where cpf_cliente = ? group by numero";
+            String sql = "select numero, c.nome, sum(quantidade * valortotal) valortotal from pedido p inner join cliente c on c.cpf = p.cpf_cliente where cpf_cliente = ? group by numero, c.nome";
             Connection connection = conexao.getConnection();
             
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -91,7 +86,7 @@ public class PedidoDAO {
 
             while (resultado.next()) {
                 Pedido pedido = new Pedido();
-                pedido.setCliente(new Cliente(codigoCliente));
+                pedido.setCliente(new Cliente(codigoCliente, resultado.getString("nome")));
                 pedido.setCodigoPedido(resultado.getInt("numero"));
                 pedido.setValortotal(resultado.getDouble("valortotal"));
 
@@ -111,7 +106,7 @@ public class PedidoDAO {
         ArrayList<Pedido> listaPedido = new ArrayList<Pedido>();
 
         try {
-            String sql = "select numero, cpf_cliente, codigo_produto, valortotal from pedido where cpf_cliente = ? group by numero";
+            String sql = "select numero, cpf_cliente, codigo_produto, p.nome, valortotal, quantidade from pedido pd inner join produto p on pd.codigo_produto = p.codigo where numero = ?";
             Connection connection = conexao.getConnection();
             
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -123,8 +118,9 @@ public class PedidoDAO {
                 Pedido pedido = new Pedido();
                 pedido.setCliente(new Cliente(resultado.getString("cpf_cliente")));
                 pedido.setCodigoPedido(resultado.getInt("numero"));
-                pedido.setProduto(new Produto(resultado.getInt("codigo_produto")));
+                pedido.setProduto(new Produto(resultado.getInt("codigo_produto"), resultado.getString("nome")));
                 pedido.setValortotal(resultado.getDouble("valortotal"));
+                pedido.setQuantidade(resultado.getInt("quantidade"));
 
                 listaPedido.add(pedido);
             }
@@ -138,15 +134,13 @@ public class PedidoDAO {
         return listaPedido;
     }
 
-    private int ObterProximoCodigoPedido (String codigoCliente) throws Exception {
+    public int ObterProximoCodigoPedido() throws Exception {
 
         try {
-            String sql = "select max(numero) sequencial from pedido where cpf_cliente = ?";
+            String sql = "select max(numero) sequencial from pedido";
             Connection connection = conexao.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setString(1, codigoCliente);
-            
             ResultSet resultado = ps.executeQuery();
 
             while (resultado.next()) {
@@ -172,7 +166,7 @@ public class PedidoDAO {
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, ObterProximoCodigoPedido(itemPedido.getCliente().getCpf()));
+            ps.setInt(1, itemPedido.getCodigoPedido());
             ps.setString(2, itemPedido.getCliente().getCpf());
             ps.setInt(3, itemPedido.getProduto().getCodigo());
             ps.setInt(4, itemPedido.getQuantidade());

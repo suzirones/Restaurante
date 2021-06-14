@@ -1,6 +1,8 @@
 package Views;
 
 import Entidade.Cliente;
+import Entidade.Pedido;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -33,10 +35,25 @@ public class ClienteComboboxModel extends AbstractListModel implements ComboBoxM
         }
     }
 
+    public void setSelectedItemPorCodigo(String cpf) {
+        for (Cliente itemCliente: this.listaClientes) {
+            if (itemCliente.getCpf().equals(cpf)) {
+                this.clienteSelecionado = itemCliente;
+                return;
+            }
+        }
+    }
+    
+    
     @Override
     public Object getSelectedItem() {
         return this.clienteSelecionado;
     }
+
+    public void clearSelectedItem() {
+        this.clienteSelecionado = new Cliente();
+        fireContentsChanged(this.listaClientes, 0, this.listaClientes.size());
+    }    
     
     public void addClientes(Cliente pCliente) {
         this.listaClientes.add(pCliente);

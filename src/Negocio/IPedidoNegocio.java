@@ -9,4 +9,5 @@ public interface IPedidoNegocio {
     boolean excluirPedido(int codigoPedido);
     ArrayList<Pedido> listaPedidoPorCliente(String codigoCliente);
     ArrayList<Pedido> listaPedidoPorPedido(int codigoPedido);
+    int ObterProximoCodigoPedido();
 }
